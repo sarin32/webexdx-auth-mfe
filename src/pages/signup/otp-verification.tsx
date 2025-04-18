@@ -14,10 +14,19 @@ import {
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const formSchema = z.object({
-  otp: z.string().min(6, 'OTP must be 6 characters').max(6, 'OTP must be 6 characters'),
+  otp: z
+    .string()
+    .min(6, 'OTP must be 6 characters')
+    .max(6, 'OTP must be 6 characters'),
 });
 
 export function OtpVerification({
@@ -75,14 +84,19 @@ export function OtpVerification({
       <div className="w-full max-w-md">
         <Card>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">Verify your email</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center">
+              Verify your email
+            </CardTitle>
             <CardDescription className="text-center">
               Enter the OTP sent to your email address
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={form.control}
                   name="otp"

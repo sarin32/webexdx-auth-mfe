@@ -10,4 +10,8 @@ export function getSessionToken(): string | null {
 
 export function removeSessionToken() {
   localStorage.removeItem(SESSION_TOKEN_KEY);
-} 
+}
+
+export function getAuthHeaders() {
+  return {Authorization: getSessionToken() || ''};
+}

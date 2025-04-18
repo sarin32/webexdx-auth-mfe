@@ -1,6 +1,6 @@
 import {API_BASE_URL} from '@/config';
 import {HttpService} from '@/lib/httpService';
-import {getAuthHeaders} from './data.service';
+import {getAuthHeaders} from '@/lib/session';
 
 class RegistrationService {
   httpService = new HttpService(API_BASE_URL);
@@ -15,10 +15,7 @@ class RegistrationService {
   }
 
   async register(body: {email: string; password: string; name: string}) {
-    const {request} = this.httpService.post<{token: string}>(
-      '/signup',
-      body
-    );
+    const {request} = this.httpService.post<{token: string}>('/signup', body);
     return await request;
   }
 

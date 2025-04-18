@@ -9,7 +9,7 @@ interface SuccessResponse<ResponseDataT> {
 
 interface FailureResponse {
   ok: false;
-  data: any;
+  data: unknown;
   httpCode: HttpStatusCode;
 }
 
@@ -52,7 +52,7 @@ export class HttpService {
   }
 
   async response<ResponseData>(
-    config: AxiosRequestConfig<any>
+    config: AxiosRequestConfig<ResponseData>
   ): Promise<Response<ResponseData>> {
     try {
       const response = await axios.request(config);

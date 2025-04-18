@@ -17,7 +17,13 @@ import {
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const formSchema = z.object({
   email_id: z.string().email('Please enter a valid email address'),
@@ -64,14 +70,19 @@ export function Login() {
       <div className="w-full max-w-md">
         <Card>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center">
+              Welcome back
+            </CardTitle>
             <CardDescription className="text-center">
               Enter your credentials to sign in to your account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={form.control}
                   name="email_id"
