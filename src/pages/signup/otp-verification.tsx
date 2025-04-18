@@ -1,7 +1,9 @@
-import {zodResolver} from '@hookform/resolvers/zod';
-import {useForm} from 'react-hook-form';
+import {useState, useEffect} from 'react';
 import {z} from 'zod';
-import {Button} from '@/components/ui/button';
+import {useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {registrationService} from '@/api/registration.service';
+import {setSessionToken} from '@/lib/session';
 import {
   Form,
   FormControl,
@@ -11,15 +13,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import {Input} from '@/components/ui/input';
-import {registrationService} from '@/api/registration.service';
-import {useEffect, useState} from 'react';
-import {setSessionToken} from '@/api/data.service';
+import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 
 const formSchema = z.object({
-  otp: z
-    .string()
-    .min(6, {message: 'Password must be 6 digits'})
-    .max(6, {message: 'Password must be 6 digits'}),
+  otp: z.string().min(6, 'OTP must be 6 characters').max(6, 'OTP must be 6 characters'),
 });
 
 export function OtpVerification({
@@ -28,41 +26,22 @@ export function OtpVerification({
   otpVerificationSuccess: () => void;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [showResendButton, setShowResendButton] = useState(false);
-  const [lastResendTime, setLastResendTime] = useState(Date.now());
   const [availableTries, setAvailableTries] = useState(3);
-  const minimumResendInterval = 30000;
+  const [showResendButton, setShowResendButton] = useState(true);
+  const [lastResendTime, setLastResendTime] = useState(Date.now());
 
   useEffect(() => {
-    // Calculate the difference between the current time and the last resend time
-    const currentTime = Date.now();
-    const timeSinceLastResend = currentTime - lastResendTime;
-
-    if (availableTries && timeSinceLastResend < minimumResendInterval) {
-      // If it hasn't been 30 seconds since the last resend, calculate the remaining time
-      const remainingTime = minimumResendInterval - timeSinceLastResend;
-
-      // Set a timeout to update the resend button visibility after the remaining time
-      const timeoutId = setTimeout(() => {
-        setShowResendButton(true);
-      }, remainingTime);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    } else {
-      // If it's been more than 30 seconds since the last resend, show the resend button
+    const timer = setTimeout(() => {
       setShowResendButton(true);
-    }
-  }, [lastResendTime]); // Run this effect whenever lastResendTime changes
+    }, 30000); // 30 seconds
+
+    return () => clearTimeout(timer);
+  }, [lastResendTime]);
 
   const handleResendClick = () => {
     registrationService.sendVerificationEmail();
     setAvailableTries(availableTries - 1);
-    // Update the lastResendTime to the current time
     setLastResendTime(Date.now());
-
-    // Hide the resend button
     setShowResendButton(false);
   };
 
@@ -75,11 +54,9 @@ export function OtpVerification({
 
   async function onSubmit({otp}: z.infer<typeof formSchema>) {
     setIsLoading(true);
-
     const response = await registrationService.validateEmailOTP({
       otp,
     });
-
     setIsLoading(false);
 
     if (!response.ok) {
@@ -90,44 +67,62 @@ export function OtpVerification({
     }
 
     setSessionToken(response.data.token);
-
     otpVerificationSuccess();
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="otp"
-          render={({field}) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input type="string" placeholder="Your OTP" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {form.formState.errors.root && (
-          <p className="text-[0.8rem] font-medium text-destructive">
-            {form.formState.errors.root.message}
-          </p>
-        )}
-        <Button variant={'default'} type="submit" loading={isLoading}>
-          Submit
-        </Button>
-
-        <Button
-          disabled={!showResendButton}
-          variant={'ghost'}
-          onClick={handleResendClick}
-        >
-          Resend OTP
-        </Button>
-      </form>
-    </Form>
+    <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="w-full max-w-md">
+        <Card>
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold text-center">Verify your email</CardTitle>
+            <CardDescription className="text-center">
+              Enter the OTP sent to your email address
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="otp"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>OTP</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter 6-digit OTP" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {form.formState.errors.root && (
+                  <p className="text-sm font-medium text-destructive">
+                    {form.formState.errors.root.message}
+                  </p>
+                )}
+                <Button type="submit" className="w-full" loading={isLoading}>
+                  Verify
+                </Button>
+                <div className="text-center text-sm">
+                  <Button
+                    variant="link"
+                    className="p-0 h-auto"
+                    disabled={!showResendButton || availableTries <= 0}
+                    onClick={handleResendClick}
+                  >
+                    {availableTries > 0
+                      ? showResendButton
+                        ? 'Resend OTP'
+                        : 'Resend available in 30s'
+                      : 'No more resend attempts'}
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

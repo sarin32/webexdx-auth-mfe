@@ -12,12 +12,14 @@ export function Signup() {
   };
 
   return (
-    <div className="max-w-screen-sm">
-      {isOtpPage ? (
-        <OtpVerification otpVerificationSuccess={verificationSuccess} />
-      ) : (
-        <Register registrationSuccess={() => setIsOtpPage(true)} />
-      )}
+    <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="w-full max-w-md">
+        {isOtpPage ? (
+          <OtpVerification otpVerificationSuccess={verificationSuccess} />
+        ) : (
+          <Register registrationSuccess={() => setIsOtpPage(true)} />
+        )}
+      </div>
     </div>
   );
 }
