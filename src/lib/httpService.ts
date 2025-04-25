@@ -7,9 +7,12 @@ interface SuccessResponse<ResponseDataT> {
   httpCode: HttpStatusCode;
 }
 
-interface FailureResponse {
+interface DefaultErrorData {
+  message: string;
+}
+interface FailureResponse<ErrorDataT = DefaultErrorData> {
   ok: false;
-  data: unknown;
+  data: ErrorDataT;
   httpCode: HttpStatusCode;
 }
 
@@ -70,7 +73,7 @@ export class HttpService {
         };
       }
       return {
-        data: null,
+        data: {message: 'Could not make request'},
         httpCode: HttpStatusCode.BadRequest,
         ok: false,
       };
