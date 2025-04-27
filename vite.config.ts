@@ -4,7 +4,9 @@ import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/auth/',
+  server: {
+    port: 4201,
+  },
   plugins: [react()],
   resolve: {
     alias: {
