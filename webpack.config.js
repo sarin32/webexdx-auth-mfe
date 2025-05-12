@@ -11,7 +11,7 @@ export default (webpackConfigEnv, argv) => {
     projectName: 'auth',
     webpackConfigEnv,
     argv,
-    outputSystemJS: false,
+    outputSystemJS: true,
   });
 
   return merge(defaultConfig, {

@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOMClient from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import singleSpaReact from 'single-spa-react';
 import App from './App';
 
 const lifecycles = singleSpaReact({
   React,
-  ReactDOMClient,
+  ReactDOM,
   rootComponent: App,
   // errorBoundary(err, info, props) {
   errorBoundary(err) {
