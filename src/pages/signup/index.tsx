@@ -1,14 +1,14 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {OtpVerification} from './otp-verification';
 import {Register} from './register';
+import {useLoginRedirect} from '@/hooks/useLoginRedirect';
 
 export function Signup() {
   const [isOtpPage, setIsOtpPage] = useState(false);
-  const navigate = useNavigate();
+  const redirectAfterLogin = useLoginRedirect();
 
   const verificationSuccess = () => {
-    navigate('/dashboard');
+    redirectAfterLogin();
   };
 
   return (

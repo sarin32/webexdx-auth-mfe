@@ -1,6 +1,8 @@
 import {API_BASE_URL} from '@/config';
 import {HttpService} from '@/lib/httpService';
 import {getAuthHeaders} from '@/lib/session';
+import {useSearchParams} from 'react-router-dom';
+import {navigateToUrl} from 'single-spa';
 
 class RegistrationService {
   httpService = new HttpService(API_BASE_URL);
@@ -35,6 +37,13 @@ class RegistrationService {
       {...getAuthHeaders()}
     );
     return await request;
+  }
+
+  loginSuccess() {
+    const [searchParams] = useSearchParams();
+    const destination = searchParams.get('app');
+
+    navigateToUrl(`/${destination}`);
   }
 }
 

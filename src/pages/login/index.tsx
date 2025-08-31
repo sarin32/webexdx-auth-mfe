@@ -24,6 +24,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useLoginRedirect } from '@/hooks/useLoginRedirect';
 
 const formSchema = z.object({
   email_id: z.string().email('Please enter a valid email address'),
@@ -34,6 +35,7 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const redirectAfterLogin = useLoginRedirect();
 
   const passwordToggle = () => {
     setShowPassword(!showPassword);
@@ -62,7 +64,7 @@ export function Login() {
       return;
     }
     setSessionToken(response.data.token);
-    navigate('/dashboard');
+    redirectAfterLogin();
   }
 
   return (
