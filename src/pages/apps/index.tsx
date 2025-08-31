@@ -4,7 +4,7 @@ import { navigateToUrl } from 'single-spa';
 
 const apps = [
     { name: 'Configforge', path: '/configforge', description: 'Configuration Management Tool' },
-    { name: 'ClearList', path: '/clearlist', description: 'Task Management Application' },
+    { name: 'Taskify', path: '/taskify', description: 'Task Management Application' },
 ];
 
 const Apps: React.FC = () => {
