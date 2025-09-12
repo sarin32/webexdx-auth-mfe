@@ -19,7 +19,7 @@
     "lint": "eslint src --ext js,ts,tsx",
     "start": "webpack serve",
     "start:standalone": "webpack serve --env standalone",
-    "build:webpack": "webpack --mode=production",
+    "build:prod": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
