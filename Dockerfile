@@ -10,7 +10,7 @@ RUN npm install
 # Copy the full source code
 COPY . .
 
-# Build the app (assuming this produces a /build directory)
+# Build the app
 RUN npm run build:prod
 
 # Stage 2: Production image
