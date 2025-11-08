@@ -1,10 +1,10 @@
-import {HomeLayout} from '@/layouts/home.layout';
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
+import { HomeLayout } from "@/layouts/home.layout";
 
 export function RootRoutes() {
-  return (
-    <Routes>
-      <Route path="/*" element={<HomeLayout />}></Route>
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path="/*" element={<HomeLayout />}></Route>
+		</Routes>
+	);
 }

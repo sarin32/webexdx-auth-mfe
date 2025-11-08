@@ -1,19 +1,23 @@
-# Stage 1: Builder
+# ---- Stage 1: Builder ----
 FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+ENV corepack_enable_download_prompt=0
+RUN corepack enable
+
 # Copy dependency manifests and install all dependencies
-COPY package*.json ./
-RUN npm install
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Copy the full source code
 COPY . .
 
 # Build the app
-RUN npm run build:prod
+RUN pnpm run build:prod
 
-# Stage 2: Production image
+
+# ---- Stage 2: Production image ----
 FROM nginx:alpine
 
 # Remove default nginx website
