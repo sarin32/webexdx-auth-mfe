@@ -1,18 +1,8 @@
 import "./styles/globals.css";
-import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./components/theme-provider";
-import { Toaster } from "./components/ui/sonner";
-import { RootRoutes } from "./routes";
+import { RouterProvider } from "react-router-dom";
+import { appRouter } from "@/app.route";
 
 function App() {
-	return (
-		<BrowserRouter>
-			<ThemeProvider storageKey="vite-ui-theme">
-				<RootRoutes />
-			</ThemeProvider>
-			<Toaster></Toaster>
-		</BrowserRouter>
-	);
+  return <RouterProvider router={appRouter} />;
 }
-
 export default App;
