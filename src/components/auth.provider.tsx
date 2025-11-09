@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import { CLIENT_BASE_URL } from "@/config";
+import { apps } from "@/config";
 import {
   getSessionToken,
   removeSessionToken,
@@ -48,8 +48,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const redirectAfterLogin = () => {
     const app = searchParams.get("app");
-    if (app) window.location.href = CLIENT_BASE_URL + app;
-    else navigate("/apps");
+    if (app) {
+        const url = apps.find((a) => a.path === app)?.url;
+        if (url) {
+            window.location.href = url;
+            return
+        }
+    }
+    navigate("/apps");
   };
 
   const login = (token: string) => {

@@ -5,20 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CONFIGFORGE_APP_URL, TASKIFY_APP_URL } from "@/config";
-
-const apps = [
-  {
-    name: "Configforge",
-    path: CONFIGFORGE_APP_URL,
-    description: "Configuration Management Tool",
-  },
-  {
-    name: "Taskify",
-    path: TASKIFY_APP_URL,
-    description: "Task Management Application",
-  },
-];
+import { apps } from "@/config";
 
 const Apps: React.FC = () => {
   const handleAppClick = (path: string) => {
@@ -46,12 +33,12 @@ const Apps: React.FC = () => {
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {apps.map((app) => (
           <Card
-            key={app.path}
+            key={app.url}
             // make card act like a button
             role="button"
             tabIndex={0}
-            onClick={() => handleAppClick(app.path)}
-            onKeyDown={(e) => onKeyActivate(e, app.path)}
+            onClick={() => handleAppClick(app.url)}
+            onKeyDown={(e) => onKeyActivate(e, app.url)}
             className="cursor-pointer transform transition duration-150 hover:scale-[1.01] focus:scale-[1.01] focus:ring-2 focus:ring-ring"
             aria-label={`Open ${app.name}`}
           >
@@ -59,7 +46,7 @@ const Apps: React.FC = () => {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <CardTitle>
-                    <a href={app.path}>{app.name}</a>
+                    <a href={app.url}>{app.name}</a>
                   </CardTitle>
                   <CardDescription>{app.description}</CardDescription>
                 </div>
