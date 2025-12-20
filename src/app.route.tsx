@@ -5,13 +5,18 @@ import { AuthLayout } from "./layouts/auth.layout";
 import { HomeLayout } from "./layouts/home.layout";
 import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
+import { GuestGuard } from "./components/auth.provider";
 
 export const appRouter = createBrowserRouter([
   {
     element: <HomeLayout />,
     children: [
       {
-        element: <AuthLayout />,
+        element: (
+          <GuestGuard>
+            <AuthLayout />
+          </GuestGuard>
+        ),
         children: [
           { path: "/", element: <Login /> }, // default → login
           { path: "/login", element: <Login /> },

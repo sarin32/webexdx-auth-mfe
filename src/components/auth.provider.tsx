@@ -109,6 +109,19 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   return children;
 }
 
+export function GuestGuard({ children }: { children: React.ReactNode }) {
+  const auth = useAuth();
+
+  if (auth.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (auth.isLoggedIn) {
+    return <Navigate to="/apps" replace />;
+  }
+  return children;
+}
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
