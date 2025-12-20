@@ -6,6 +6,8 @@ WORKDIR /app
 ENV corepack_enable_download_prompt=0
 RUN corepack enable
 
+ENV PNPM_STORE_PATH=/pnpm/store
+
 # Copy dependency manifests and install all dependencies
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
