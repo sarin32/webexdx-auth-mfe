@@ -4,8 +4,7 @@ export const TASKIFY_APP_URL = import.meta.env.VITE_REACT_TASKIFY_APP_URL!;
 export const CONFIGFORGE_APP_URL = import.meta.env
   .VITE_REACT_CONFIGFORGE_APP_URL;
 
-
-  export const apps = [
+export const apps = [
   {
     name: "Configforge",
     path: "configforge",

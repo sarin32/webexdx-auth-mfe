@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "@/components/auth.provider";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
-import { useAuth } from "@/components/auth.provider";
 
 export function Navbar() {
   const { isLoggedIn, logout } = useAuth();

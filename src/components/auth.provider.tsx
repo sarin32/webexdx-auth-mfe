@@ -49,11 +49,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const redirectAfterLogin = () => {
     const app = searchParams.get("app");
     if (app) {
-        const url = apps.find((a) => a.path === app)?.url;
-        if (url) {
-            window.location.href = url;
-            return
-        }
+      const url = apps.find((a) => a.path === app)?.url;
+      if (url) {
+        window.location.href = url;
+        return;
+      }
     }
     navigate("/apps");
   };

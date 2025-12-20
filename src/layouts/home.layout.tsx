@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 export function HomeLayout() {
   return (
-    <ThemeProvider storageKey="vite-ui-theme">
+    <ThemeProvider storageKey="ui-theme">
       <AuthProvider>
         {/* full height column */}
         <div className="flex min-h-screen flex-col">
