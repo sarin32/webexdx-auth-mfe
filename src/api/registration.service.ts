@@ -1,6 +1,5 @@
 import { API_BASE_URL } from "@/config";
 import { HttpService } from "@/lib/httpService";
-import { getAuthHeaders } from "@/lib/session";
 
 class RegistrationService {
   httpService = new HttpService(API_BASE_URL);
@@ -26,7 +25,7 @@ class RegistrationService {
     const { request } = this.httpService.post(
       "/sendEmailForVerification",
       {},
-      { ...getAuthHeaders() },
+      {},
     );
     return await request;
   }
@@ -35,8 +34,23 @@ class RegistrationService {
     const { request } = this.httpService.post<{ token: string }>(
       "/verifyEmailVerificationOTP",
       body,
-      { ...getAuthHeaders() },
+      {},
     );
+    return await request;
+  }
+
+  async logout() {
+    const { request } = this.httpService.post("/logout", {}, {});
+    return await request;
+  }
+
+  async getSelfInfo() {
+    const { request } = this.httpService.post<{
+      _id: string;
+      name: string;
+      email: string;
+      roles: string[];
+    }>("/getSelfInfo", {}, {});
     return await request;
   }
 }
