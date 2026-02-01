@@ -1,69 +1,73 @@
-# React + TypeScript + Vite
+# WebExDX Auth MFE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based Micro-Frontend (MFE) for managing authentication in the WebExDX platform.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Login/Registration**: secure forms using `react-hook-form` and `zod` validation.
+- **Responsive Design**: built with Tailwind CSS and Radix UI components.
+- **Theme Support**: light and dark mode integration using `next-themes`.
+- **Micro-Frontend Ready**: designed to be integrated into larger container applications.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework**: React 19
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS 4, Radix UI
+- **Forms**: React Hook Form, Zod
+- **Icons**: Lucide React, Radix Icons
+- **HTTP Client**: Axios
+- **Linter/Formatter**: Biome
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Node.js**: >= 22
+- **Package Manager**: pnpm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+### Installation
+
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm run start
 ```
+
+### Build
+
+```bash
+pnpm run build:prod
+```
+
+## Available Scripts
+
+- `pnpm run start`: Starts the development server using Vite.
+- `pnpm run build:prod`: Compiles the application for production.
+- `pnpm run lint`: Checks the code for quality issues using Biome.
+- `pnpm run fix`: Automatically fixes linting issues using Biome.
+- `pnpm run preview`: Previews the production build locally.
+
+## Docker
+
+### Build
+
+```bash
+docker build -t webexdx-auth-mfe .
+```
+
+### Run
+
+```bash
+docker run -p 8080:80 webexdx-auth-mfe
+```
+
+The application will be available at `http://localhost:8080`.
+
+## License
+
+Private
