@@ -3,6 +3,7 @@ export const CLIENT_BASE_URL = import.meta.env.VITE_REACT_CLIENT_BASE_URL!;
 export const TASKIFY_APP_URL = import.meta.env.VITE_REACT_TASKIFY_APP_URL!;
 export const CONFIGFORGE_APP_URL = import.meta.env
   .VITE_REACT_CONFIGFORGE_APP_URL;
+export const RESUME_APP_URL = import.meta.env.VITE_REACT_RESUME_APP_URL;
 
 export const apps = [
   {
@@ -16,5 +17,11 @@ export const apps = [
     path: "taskify",
     url: TASKIFY_APP_URL,
     description: "Task Management Application",
+  },
+  {
+    name: "Resume",
+    path: "resume",
+    url: RESUME_APP_URL,
+    description: "Resume Management Application",
   },
 ];
